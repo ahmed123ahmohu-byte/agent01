@@ -1,4 +1,4 @@
-name: Build DevSplit AI
+name: Build DevSplit AI APK
 on: [push]
 
 jobs:
@@ -12,20 +12,18 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
-      # إنشاء الـ Wrapper يدوياً لضمان وجود ملف gradlew
-      - name: Generate Gradle Wrapper
-        run: gradle wrapper
+      # إجبار النظام على استخدام Gradle 8.5 المستقر
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.5
 
-      - name: Grant execute permission
-        run: chmod +x gradlew
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon
+      - name: Build with Gradle
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: DevSplit-AI-Build
+          name: DevSplit-AI-Final
           path: app/build/outputs/apk/debug/*.apk
