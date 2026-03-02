@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-        google()           // هذا ما كان ينقصك لتحميل Plugin الأندرويد
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -12,6 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
 rootProject.name = "DevSplitAI"
 include(":app")
