@@ -12,26 +12,13 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0-Alpha"
+        versionName = "1.0"
 
         externalNativeBuild {
             cmake {
-                cppFlags("")
-                abiFilters("arm64-v8a") // مهم جداً لأجهزة الأندرويد القوية
+                cppFlags("-std=c++17")
+                abiFilters("arm64-v8a") 
             }
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-    
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
         }
     }
 
@@ -42,11 +29,16 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
+    }
 }
 
 dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
